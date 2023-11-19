@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <link rel="stylesheet" href="/main/css/detail.css">
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="detail">
+        <div class="detail-1">
+            <div class="product-list">
+                <ul>
+                    <li class="active" data-tab="about-product">About Product</li>
+                    <li data-tab="detail">Detail</li>
+                    <li data-tab="blog">Blog</li>
+                </ul>
+            </div>
+            <div>
+                <div class="button">
+                    <button class="button-on">Thêm vào giỏ hàng
+                    </button>
+                    <button class="button-off">Mua hàng ngay</button>
+                </div>
+            </div>
+        </div>
+        <div class="detail-2">
+            <div class="content-left">
+                <h3 class="product-name">{{localStorageProduct.product.name}}-{{localStorageProduct.size.name}}</h3>
+                <p class="product-category">{{localStorageProduct.gender.name}}</p>
+                <div class="price">
+                    <p class="price-desc">{{localStorageProduct.price}} VND</p>
+                    <p class="price-stable">{{localStorageProduct.price}} VND</p>
+                </div>
+                <div class="tab-content" id="about-product-content">
+                    <div class="product-about">
+                        <div class="product-color">
+                            <!-- <h4 class="mg-title">Chọn phong cách</h4> -->
+                            <!-- <ul> -->
+                                <!-- <li> -->
+                                    <!-- <img src="/image/images/{{watch.images[0].image_link}}.png"> -->
+                                    <!-- <img src="/image/images/{{localStorageProduct.images[0].image_link}}.png" alt=""> -->
+                                <!-- </li> -->
+                                <!-- <li><img src="/image/giay2.webp" alt=""></li>
+                                <li><img src="/image/giay3.webp" alt=""></li>
+                                <li><img src="/image/giay4.webp" alt=""></li>
+                                <li><img src="/image/giay3.webp" alt=""></li>
+                                <li><img src="/image/giay1.webp" alt=""></li>
+                                <li><img src="/image/giay4.webp" alt=""></li>
+                                <li><img src="/image/giay2.webp" alt=""></li>
+                                <li><img src="/image/giay3.webp" alt=""></li> -->
+                            <!-- </ul> -->
+                        </div>
+                        <div class="product-size">
+                            <h4 class="mg-title">Chọn size</h4>
+                            <ul >
+                                <li ng-repeat="product in filteredProducts">
+                                    <p ng-click="detailProduct(product)">{{product.size.name}}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="detail-content">
+                    <div class="product-infomation">
+                        <h4>Thông tin chi tiết</h4>
+                        <ul>
+                            <li>Thương hiệu: {{localStorageProduct.brand.name}}</li>
+                            <li>Đối tượng sử dung: {{localStorageProduct.gender.name}}</li>
+                            <li>Dòng máy: {{localStorageProduct.machinetype.name}}</li>
+                            <li>Chất liệu dây: {{localStorageProduct.strap.name}}</li>
+                            <li>Chất liệu kính: {{localStorageProduct.glassmaterial.name}}</li>
+                            <li>Kháng nước: {{localStorageProduct.feature.name}}</li>
+                            <li>Xuất xứ: {{localStorageProduct.origin.name}}</li>
+                            <li>Chất liệu vỏ: {{localStorageProduct.casematerial.name}}</li>
+                            <li>Hình dạng: {{localStorageProduct.shape.name}}</li>
+                            <li>Màu vỏ: {{localStorageProduct.casecolor.name}}</li>
+                            <li>Phong cách: Cổ điển</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content" id="blog-content">
+                    <div class="product-blog">
+                        <h3>Hello</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="left">
+                    <img src="/image/images/{{localStorageProduct.images[0].image_link}}.png" alt="" id="left-image">
+                    <!-- <img src="/image/giay5.webp" alt="" id="left-image"> -->
+                    <i class='bx bxs-heart' title="Thêm vào danh sách yêu thích"></i>
+                    <div class="button-slide">
+                        <button class="btn-prev">
+                            < </button>
+                                <button class="btn-next">></button>
+                    </div>
+                </div>
+                <div class="right">
+                    <ul>
+                        <li><img src="/image/giay5.webp" alt=""></li>
+                        <li><img src="/image/giay1.webp" alt=""></li>
+                        <li><img src="/image/giay2.webp" alt=""></li>
+                        <li><img src="/image/giay3.webp" alt=""></li>
+                        <li><img src="/image/giay4.webp" alt=""></li>
+                        <li><img src="/image/giay3.webp" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="detail-3">
+            <h3>
+                Explore the Nike Blazer Mid '77 Vintage Men's Shoes
+            </h3>
+            <img src="/image/image (1).jpg" alt="">
+            <h3>
+                Explore the Nike Blazer Mid '77 Vintage Men's Shoes
+            </h3>
+            <img src="/image/image.jpg" alt="">
+            <h3>
+                Explore the Nike Blazer Mid '77 Vintage Men's Shoes
+            </h3>
+            <img src="/image/image (2).jpg" alt="">
+            <h3>
+                Explore the Nike Blazer Mid '77 Vintage Men's Shoes
+            </h3>
+        </div>
+        <div class="detail-4">
+            <div class="head-detail">
+                <h3 class="head-detail-4">Sản phẩm tương tự</h3>
+                <div class="button-slide-product">
+                    <button class="btn-prev-product">
+                        < </button>
+                            <button class="btn-next-product">></button>
+                </div>
+            </div>
+            <div class="container">
+                <div class="product-items">
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="/image/images/shoe-1.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                                <button type="button" class="btn-love"> add to love
+                                    <span>
+                                        <i class='bx bxs-heart'></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                                <h2 class="sm-title">lifestyle</h2>
+                            </div>
+                            <a href="#" class="product-name"> new product 1</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+
+                        <div class="off-info">
+                            <h2 class="sm-title">25% off</h2>
+                        </div>
+                    </div>
+
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="/image/images/shoe-1.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                                <button type="button" class="btn-love"> add to love
+                                    <span>
+                                        <i class='bx bxs-heart'></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                                <h2 class="sm-title">lifestyle</h2>
+                            </div>
+                            <a href="#" class="product-name"> new product 2</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+
+                    </div>
+
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="/image/images/shoe-1.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                                <button type="button" class="btn-love"> add to love
+                                    <span>
+                                        <i class='bx bxs-heart'></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                                <h2 class="sm-title">lifestyle</h2>
+                            </div>
+                            <a href="#" class="product-name"> new product 3</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+
+                        <div class="off-info">
+                            <h2 class="sm-title">25% off</h2>
+                        </div>
+                    </div>
+
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="/image/images/shoe-1.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                                <button type="button" class="btn-love"> add to love
+                                    <span>
+                                        <i class='bx bxs-heart'></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                                <h2 class="sm-title">lifestyle</h2>
+                            </div>
+                            <a href="#" class="product-name"> new product 4</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+
+                        <!-- <div class="off-info">
+                            <h2 class="sm-title">25% off</h2>
+                        </div> -->
+                    </div>
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="/image/images/shoe-1.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                                <button type="button" class="btn-love"> add to love
+                                    <span>
+                                        <i class='bx bxs-heart'></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                                <h2 class="sm-title">lifestyle</h2>
+                            </div>
+                            <a href="#" class="product-name"> new product 5</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+
+                        <!-- <div class="off-info">
+                            <h2 class="sm-title">25% off</h2>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/master/FileSaver.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
+
+    <link rel="stylesheet" href="style.css">
+    <title>Admin</title>
+</head>
+
+<body ng-app="adminapp">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <!-- <i class='bx bx-code-alt'></i> -->
+            <img src="/admin/images/bee (1).png" alt="">
+            <div class="logo-name"><span>Bee</span>Watch</div>
+        </a>
+        <ul class="side-menu">
+            <li class="active"><a href="#banhang"><i class='bx bxs-dashboard'></i>Bán hàng tại quầy</a></li>
+            <li class="product"><a href="#product"><i class='bx bxs-stopwatch'></i></i>Product</a></li>
+            <ul class="sub-menu">
+                <li><a href="#">Thương hiệu</a></li>
+                <li><a href="#">Dòng máy</a></li>
+                <li><a href="#">Chất liệu dây</a></li>
+                <li><a href="#">Chất liệu kính</a></li>
+                <li><a href="#">Size mặt</a></li>
+                <li><a href="#">Xuất xứ</a></li>
+                <li><a href="#">Hình dạng</a></li>
+                <li><a href="#">Phong cách</a></li>
+                <li><a href="#">Màu vỏ</a></li>
+                <li><a href="#">Màu mặt</a></li>
+            </ul>
+            <li><a href="#"><i class='bx bx-group'></i>Custumer</a></li>
+            <li><a href="#"><i class='bx bxs-user'></i>Staff</a></li>
+            <li><a href="#"><i class='bx bx-cart-download'></i>Voucher</a></li>
+            <li><a href="#order"><i class='bx bx-receipt'></i>Order</a></li>
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="#"><i class='bx bx-images'></i>Tài nguyên</a></li>
+        </ul>
+        <ul class="side-menu" ng-controller="HeaderController">
+            <li>
+                <a class="logout" ng-click="logout()">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content_index" ng-controller="HeaderController">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <h3>Welcome-{{username}}</h3>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/logo.png">
+            </a>
+        </nav>
+    </div>
+    <div>
+        <div ng-view></div>
+    </div>
+
+    <script src="index.js"></script>
+    <script src="/admin/js/banhang.js"></script>
+    <script src="/admin/js/product.js"></script>
+    <script src="/admin/js/login-admin.js"></script>
+    <script src="/admin/js/orderAdmin.js"></script>
+    <script src="/admin/js/watchService.js"></script>
+</body>
+
+</html>

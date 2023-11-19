@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+    <link rel="stylesheet" href="/main/css/user.css">
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="user">
+        <div class="user-left">
+            <h4 class="user-left-thongtintaikhoan active">Thông tin tài khoản</h4>
+            <h4 class="user-left-hoadon">Hóa đơn của tôi</h4>
+            <h4 class="user-left-repass">Thay đổi mật khẩu</h4>
+        </div>
+        <div class="user-right">
+            <div class="user-thongtintaikhoan">
+                <div class="category-thongtintaikhoan">
+                    <!-- <ul>
+                        <li class="active" onclick="showPersonalInfo()">Thông tin cá nhân</li>
+                        <li onclick="showDeliveryAddress()">Địa chỉ giao hàng</li>
+                    </ul> -->
+                    <ul>
+                        <li ng-class="{active: isPersonalInfoVisible}" ng-click="showPersonalInfo()">Thông tin cá nhân</li>
+                        <li ng-class="{active: isDeliveryAddressVisible}" ng-click="showDeliveryAddress()">Địa chỉ giao hàng</li>
+                    </ul>
+                </div>
+                <div class="contact-right-thongtintaikhoan" ng-show="isPersonalInfoVisible">
+                    <span class="content-left">
+                        <div>
+                            <label>Tên <span>*</span></label><br>
+                            <input ng-model="localStorageIdac.fullname" class="custom-input" type="text" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label>Email <span>*</span></label><br>
+                            <input ng-model="localStorageIdac.email" class="custom-input" type="text" placeholder="Your Email">
+                        </div>
+                    </span>
+                    <span class="content-left">
+                        <div>
+                            <label>Địa chỉ<span>*</span></label><br>
+                            <input value="Hà Nội - Việt Nam" class="custom-input" type="text" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label>Điện thoại<span>*</span></label><br>
+                            <input ng-model="localStorageIdac.phone" class="custom-input" type="text" placeholder="Your Email">
+                        </div>
+                    </span>
+                    <span class="content-left">
+                        <div>
+                            <label>Ngày sinh <span>*</span></label><br>
+                            <input ng-model="localStorageIdac.date_of_birth" class="custom-input" type="text" placeholder="Your Name">
+                        </div>
+                        <div>
+                            <label>Giới tính<span>*</span></label><br>
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-secondary">
+                                    <input type="radio" ng-model="localStorageIdac.gender" ng-value="1" name="gender" id="male"> Nam
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" ng-model="localStorageIdac.gender" ng-value="0" name="gender" id="female"> Nữ
+                                </label>
+                                <label class="btn btn-secondary active">
+                                    <input type="radio" ng-model="localStorageIdac.gender" ng-value="2" name="gender" id="khac"> Khác
+                                </label>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="button">
+                        <button>Áp dụng</button>
+                        <button>Làm mới</button>
+                    </div>
+                </div>
+                <div class="contact-right-diachi" ng-show="isDeliveryAddressVisible">
+                    <div class="address-left-2">
+                        <h3 class="title">Thêm thông tin nhận hàng mới</h3>
+                        <div class="form-thongtin">
+                            <span class="content-left">
+                                <div>
+                                    <label>Tên <span>*</span></label><br>
+                                    <input  class="custom-input" type="text" placeholder="Your Name">
+                                </div>
+                                <div>
+                                    <label>Email <span>*</span></label><br>
+                                    <input class="custom-input" type="text" placeholder="Your Email">
+                                </div>
+                            </span>
+                            <div class="form-thongtin-diachi">
+                                <label>Địa chỉ của bạn <span>*</span></label><br>
+                                <input class="custom-input" type="text" placeholder="Điền địa chỉ nhận hàng">
+                            </div>
+                            <span class="content-left">
+                                <div>
+                                    <label>Địa chỉ<span>*</span></label><br>
+                                    <input class="custom-input" type="text" placeholder="Your Name">
+                                </div>
+                                <div>
+                                    <label>Điện thoại<span>*</span></label><br>
+                                    <input class="custom-input" type="text" placeholder="Your Email">
+                                </div>
+                            </span>
+                            <div class="button">
+                                <button class="btn-luuthongtin">Lưu thông tin</button>
+                                <button>Làm mới</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="address-left-3">
+                        <h3 class="title">Các địa chỉ nhận hàng đã lưu</h3>
+                        <div class="address-right">
+                            <div title="Click để chọn" class="address-saved">
+                                <label>Địa chỉ 1</label>
+                                <i class='bx bx-check'></i>
+                                <div>
+                                    <p>Duc Nguyen</p>
+                                    <p>Uy No,Dong Anh,Ha Noi</p>
+                                    <p>ducnguyen@gmail.com</p>
+                                    <p>0563797816</p>
+                                </div>
+                            </div>
+                            <div class="address-saved">
+                                <label>Địa chỉ 1</label>
+                                <i class='bx bx-check'></i>
+                                <div>
+                                    <p>Duc Nguyen</p>
+                                    <p>Uy No,Dong Anh,Ha Noi</p>
+                                    <p>ducnguyen@gmail.com</p>
+                                    <p>0563797816</p>
+                                </div>
+                            </div>
+                            <div class="address-saved">
+                                <label>Địa chỉ 1</label>
+                                <i class='bx bx-check'></i>
+                                <div>
+                                    <p>Duc Nguyen</p>
+                                    <p>Uy No,Dong Anh,Ha Noi</p>
+                                    <p>ducnguyen@gmail.com</p>
+                                    <p>0563797816</p>
+                                </div>
+                            </div>
+                            <div class="address-saved">
+                                <label>Địa chỉ 1</label>
+                                <i class='bx bx-check'></i>
+                                <div>
+                                    <p>Duc Nguyen</p>
+                                    <p>Uy No,Dong Anh,Ha Noi</p>
+                                    <p>ducnguyen@gmail.com</p>
+                                    <p>0563797816</p>
+                                </div>
+                            </div>
+                            <div class="address-saved">
+                                <label>Địa chỉ 1</label>
+                                <i class='bx bx-check'></i>
+                                <div>
+                                    <p>Duc Nguyen</p>
+                                    <p>Uy No,Dong Anh,Ha Noi</p>
+                                    <p>ducnguyen@gmail.com</p>
+                                    <p>0563797816</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-hoadon">
+                <div class="category-hoadon">
+                    <ul>
+                        <li onclick="showHoadonall()" class="active">Tất cả</li>
+                        <li onclick="showHoadonxacnhan()">Chờ xác nhận</li>
+                        <li onclick="showHoadoncho()">Chờ lấy hàng</li>
+                        <li onclick="showHoadondanggiao()">Đang giao</li>
+                        <li onclick="showHoadondagiao()">Đã giao</li>
+                        <li onclick="showHoadondahuy()">Đã hủy</li>
+                        <li onclick="showHoadontrahang()">Trả hàng</li>
+                    </ul>
+                </div>
+                <div class="user-hoadon-content">
+                    <div class="user-hoadon-all">
+                        <div class="user-hoadon-all-content" ng-repeat="ord in orderAccount">
+                            <div class="info-hoadon">
+                                <h3>{{ord.code}}</h3>
+                                <div ng-switch="ord.status">
+                                    <p ng-switch-when="0">Chờ xác nhận</p>
+                                    <p ng-switch-when="1">Đã xác nhận</p>
+                                    <p ng-switch-when="2">Đang giao</p>
+                                    <p ng-switch-default>Trạng thái không xác định</p>
+                                </div>
+                            </div>
+                            <div class="tongtien-thanhtoan">
+                                <div>
+                                    <span class="title">Tổng tiền</span>
+                                    <span class="value">{{ord.total_money}} <u>VND</u></span>
+                                </div>
+                                <div>
+                                    <span class="title">Phí giao hàng</span>
+                                    <span class="value">50.000 <u>VND</u></span>
+                                </div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">
+                                    <span class="title">Thành tiền</span>
+                                    <span class="value">13.050.000 <u>VND</u></span>
+                                </div>
+                            </div>
+                            <div class="button-hoadon">
+                                <button ng-click="detailOrder(ord)">Chi tiết đơn hàng</button>
+                                <button>Hủy đơn</button>
+                            </div>
+                        </div>
+                        <!-- <div class="user-hoadon-all-content">
+                            <div class="info-hoadon">
+                                <h3>HD00001</h3>
+                                <p>Tình trạng</p>
+                            </div>
+                            <div class="tongtien-thanhtoan">
+                                <div>
+                                    <span class="title">Tổng tiền</span>
+                                    <span class="value">13.000.000 <u>VND</u></span>
+                                </div>
+                                <div>
+                                    <span class="title">Phí giao hàng</span>
+                                    <span class="value">50.000 <u>VND</u></span>
+                                </div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">
+                                    <span class="title">Thành tiền</span>
+                                    <span class="value">13.050.000 <u>VND</u></span>
+                                </div>
+                            </div>
+                            <div class="button-hoadon">
+                                <button>Chi tiết đơn hàng</button>
+                                <button>Hủy đơn</button>
+                            </div>
+                        </div> -->
+                        <!-- <div class="user-hoadon-all-content">
+                            <div class="info-hoadon">
+                                <h3>HD00001</h3>
+                                <p>Tình trạng</p>
+                            </div>
+                            <div class="tongtien-thanhtoan">
+                                <div>
+                                    <span class="title">Tổng tiền</span>
+                                    <span class="value">13.000.000 <u>VND</u></span>
+                                </div>
+                                <div>
+                                    <span class="title">Phí giao hàng</span>
+                                    <span class="value">50.000 <u>VND</u></span>
+                                </div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">
+                                    <span class="title">Thành tiền</span>
+                                    <span class="value">13.050.000 <u>VND</u></span>
+                                </div>
+                            </div>
+                            <div class="button-hoadon">
+                                <button>Chi tiết đơn hàng</button>
+                                <button>Hủy đơn</button>
+                            </div>
+                        </div> -->
+                        <!-- <div class="user-hoadon-all-content">
+                            <div class="info-hoadon">
+                                <h3>HD00001</h3>
+                                <p>Tình trạng</p>
+                            </div>
+                            <div class="tongtien-thanhtoan">
+                                <div>
+                                    <span class="title">Tổng tiền</span>
+                                    <span class="value">13.000.000 <u>VND</u></span>
+                                </div>
+                                <div>
+                                    <span class="title">Phí giao hàng</span>
+                                    <span class="value">50.000 <u>VND</u></span>
+                                </div>
+                                <div style="margin-top: 10px; margin-bottom: 15px;">
+                                    <span class="title">Thành tiền</span>
+                                    <span class="value">13.050.000 <u>VND</u></span>
+                                </div>
+                            </div>
+                            <div class="button-hoadon">
+                                <button>Chi tiết đơn hàng</button>
+                                <button>Hủy đơn</button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="user-hoadon-xacnhan">
+                        <h1>All 1</h1>
+                    </div>
+                    <div class="user-hoadon-cho">
+                        <h1>All 2</h1>
+                    </div>
+                    <div class="user-hoadon-danggiao">
+                        <h1>All 3</h1>
+                    </div>
+                    <div class="user-hoadon-dagiao">
+                        <h1>All 4</h1>
+                    </div>
+                    <div class="user-hoadon-dahuy">
+                        <h1>All 5</h1>
+                    </div>
+                    <div class="user-hoadon-trahang">
+                        <h1>All 6</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="user-repass">
+                <h3>Đổi mật khẩu</h3>
+                <div>
+                    <label>Điền lại mật khẩu <span>*</span></label><br>
+                    <input class="custom-input" type="password" placeholder="Điền mật khẩu">
+                </div>
+                <div>
+                    <label>Mật khẩu mới <span>*</span></label><br>
+                    <input class="custom-input" type="text" placeholder="Điền lại mật khẩu">
+                </div>
+                <div>
+                    <label>Xác nhận mật khẩu mới <span>*</span></label><br>
+                    <input class="custom-input" type="text" placeholder="Điền lại mật khẩu">
+                </div>
+                <div class="button-repass">
+                    <button>Áp dụng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

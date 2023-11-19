@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/main/css/home.css">
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+</head>
+
+<body>
+    <div class="products">
+        <div class="slider">
+            <div class="list">
+                <div class="item">
+                    <div>
+                        <h2>Wonderfull Classic Watch</h3>
+                            <p class="lg_titile">
+                                Thời gian, không gì có thể đo lường nó tốt hơn so với một chiếc đồng hồ đẹp. Đồng hồ
+                                không
+                                chỉ là một thiết bị đo thời gian, mà còn là biểu tượng của phong cách và cái nhìn về
+                                cuộc
+                                sống. Chúng ta không chỉ đeo nó để biết giờ, mà còn để tỏ ra lịch lãm và đẳng cấp.
+                            </p>
+                            <button class="custom-btn btn-3"><span>Read More</span></button>
+                    </div>
+                    <img src="/image/images/8.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="/image/images/9.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="/image/images/6.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="/image/images/11.jpg" alt="">
+                </div>
+                <div class="item">
+                    <img src="/image/images/12.jpg" alt="">
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="prev">&lt;</button>
+                <button id="next">&gt;</button>
+            </div>
+            <ul class="dots">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1 class="lg-title">Special Watch With Offers</h1>
+            <p class="text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur quos sit
+                consectetur, ipsa voluptatem vitae necessitatibus dicta veniam, optio, possimus assumenda laudantium.
+                Temporibus, quis cum.</p>
+
+            <div class="title-new-product">
+                <h3>New Product</h3>
+                <p style="text-decoration: underline; color: #0188ff;">See all New Product</p>
+            </div>
+            <div class="product-items" >
+                <!-- single product -->
+                <div class="product" ng-repeat="watch in displayedProducts">
+                    <div class="product-content">
+                        <div class="product-img" ng-click="detailProduct(watch)">
+                            <a >
+                                <img ng-src="/image/images/{{watch.images[0].image_link}}.png" alt="product image">
+                            </a>
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart" ng-click="addtoCart(watch)"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy" ng-click="buyNow(watch)"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                            <button type="button" class="btn-love"> add to love
+                                <span>
+                                    <i class='bx bxs-heart'></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                            <h2 class="sm-title">{{watch.brand.name}}</h2>
+                        </div>
+                        <a href="#" class="product-name" title="{{watch.product.name}}">{{watch.product.name}}</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">{{watch.price}} VND</p>
+                    </div>
+
+                    <div class="off-info">
+                        <h2 class="sm-title">25% off</h2>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <button class="btn-next-sp" ng-click="previousPage()"><</button>
+                <button class="btn-previous-sp" ng-click="nextPage()">></button>
+            </div>
+            <!-- Ad chinh sach -->
+            <div class="title-ad-chinhsach">
+                <img style="width: 48px; height: 48px;" src="/image/icons8-dove-48.png">
+                <p>|</p>
+                <h4>Chính sách đổi trả hợp lí
+                    <a href="" style="font-size: 13px;">Tìm hiểu thêm</a>
+                </h4>
+            </div>
+
+            <!-- Display product theo category -->
+            <div class="product-items-category">
+                <div class="product active">
+                    <h1>Zenith</h1>
+                    <a href="">See all products</a>
+                    <img src="/image/zenith-wallpaper.jpg" alt="product image">
+                </div>
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+            </div>
+            <div class="category-list">
+                <ul>
+                    <li class="active">Nổi bật</li>
+                    <li>Bán chạy</li>
+                    <li>Giảm giá</li>
+                    <li>Tồn kho</li>
+                </ul>
+            </div>
+            <!-- end category list -->
+            <div class="product-items-category">
+                <div class="product active">
+                    <h1>Hublot</h1>
+                    <a href="">See all products</a>
+                    <img src="/image/hublot-wallpaper.png" alt="product image">
+                </div>
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <!-- single product -->
+                <div class="product">
+                    <div class="product-content">
+                        <div class="product-img">
+                            <img src="image/images/shoe-6.png" alt="product image">
+                        </div>
+                        <div class="product-btns">
+                            <button type="button" class="btn-cart"> add to cart
+                                <span><i class="fas fa-plus"></i></span>
+                            </button>
+                            <button type="button" class="btn-buy"> buy now
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-info">
+                        <div class="product-info-top">
+                            <h2 class="sm-title">lifestyle</h2>
+                            <div class="rating">
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="fas fa-star"></i></span>
+                                <span><i class="far fa-star"></i></span>
+                            </div>
+                        </div>
+                        <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                        <p class="product-price">$ 150.00</p>
+                        <p class="product-price">$ 133.00</p>
+                    </div>
+                </div>
+                <!-- end of single product -->
+                <div class="category-list">
+                    <ul>
+                        <li class="active">Nổi bật</li>
+                        <li>Bán chạy</li>
+                        <li>Giảm giá</li>
+                        <li>Tồn kho</li>
+                    </ul>
+                </div>
+                <!-- end category list -->
+                <div class="product-items-category">
+                    <div class="product active">
+                        <h1>Omega</h1>
+                        <a href="">See all products</a>
+                        <img src="/image/omega-wallpaper.jpg" alt="product image">
+                    </div>
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="image/images/shoe-6.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <h2 class="sm-title">lifestyle</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                            </div>
+                            <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+                    </div>
+                    <!-- end of single product -->
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="image/images/shoe-6.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <h2 class="sm-title">lifestyle</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                            </div>
+                            <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+                    </div>
+                    <!-- end of single product -->
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="image/images/shoe-6.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <h2 class="sm-title">lifestyle</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                            </div>
+                            <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+                    </div>
+                    <!-- end of single product -->
+                    <!-- single product -->
+                    <div class="product">
+                        <div class="product-content">
+                            <div class="product-img">
+                                <img src="image/images/shoe-6.png" alt="product image">
+                            </div>
+                            <div class="product-btns">
+                                <button type="button" class="btn-cart"> add to cart
+                                    <span><i class="fas fa-plus"></i></span>
+                                </button>
+                                <button type="button" class="btn-buy"> buy now
+                                    <span><i class="fas fa-shopping-cart"></i></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="product-info">
+                            <div class="product-info-top">
+                                <h2 class="sm-title">lifestyle</h2>
+                                <div class="rating">
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="fas fa-star"></i></span>
+                                    <span><i class="far fa-star"></i></span>
+                                </div>
+                            </div>
+                            <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                            <p class="product-price">$ 150.00</p>
+                            <p class="product-price">$ 133.00</p>
+                        </div>
+                    </div>
+                    <!-- end of single product -->
+                    <div class="category-list">
+                        <ul>
+                            <li class="active">Nổi bật</li>
+                            <li>Bán chạy</li>
+                            <li>Giảm giá</li>
+                            <li>Tồn kho</li>
+                        </ul>
+                    </div>
+                    <!-- end category list -->
+                    <div class="product-items-category">
+                        <div class="product active">
+                            <h1>Rolex</h1>
+                            <a href="">See all products</a>
+                            <img src="/image/rolex-wallpaper.png" alt="product image">
+                        </div>
+                        <!-- single product -->
+                        <div class="product">
+                            <div class="product-content">
+                                <div class="product-img">
+                                    <img src="image/images/shoe-6.png" alt="product image">
+                                </div>
+                                <div class="product-btns">
+                                    <button type="button" class="btn-cart"> add to cart
+                                        <span><i class="fas fa-plus"></i></span>
+                                    </button>
+                                    <button type="button" class="btn-buy"> buy now
+                                        <span><i class="fas fa-shopping-cart"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="product-info">
+                                <div class="product-info-top">
+                                    <h2 class="sm-title">lifestyle</h2>
+                                    <div class="rating">
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="far fa-star"></i></span>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                                <p class="product-price">$ 150.00</p>
+                                <p class="product-price">$ 133.00</p>
+                            </div>
+                        </div>
+                        <!-- end of single product -->
+                        <!-- single product -->
+                        <div class="product">
+                            <div class="product-content">
+                                <div class="product-img">
+                                    <img src="image/images/shoe-6.png" alt="product image">
+                                </div>
+                                <div class="product-btns">
+                                    <button type="button" class="btn-cart"> add to cart
+                                        <span><i class="fas fa-plus"></i></span>
+                                    </button>
+                                    <button type="button" class="btn-buy"> buy now
+                                        <span><i class="fas fa-shopping-cart"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="product-info">
+                                <div class="product-info-top">
+                                    <h2 class="sm-title">lifestyle</h2>
+                                    <div class="rating">
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="far fa-star"></i></span>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                                <p class="product-price">$ 150.00</p>
+                                <p class="product-price">$ 133.00</p>
+                            </div>
+                        </div>
+                        <!-- end of single product -->
+                        <!-- single product -->
+                        <div class="product">
+                            <div class="product-content">
+                                <div class="product-img">
+                                    <img src="image/images/shoe-6.png" alt="product image">
+                                </div>
+                                <div class="product-btns">
+                                    <button type="button" class="btn-cart"> add to cart
+                                        <span><i class="fas fa-plus"></i></span>
+                                    </button>
+                                    <button type="button" class="btn-buy"> buy now
+                                        <span><i class="fas fa-shopping-cart"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="product-info">
+                                <div class="product-info-top">
+                                    <h2 class="sm-title">lifestyle</h2>
+                                    <div class="rating">
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="far fa-star"></i></span>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                                <p class="product-price">$ 150.00</p>
+                                <p class="product-price">$ 133.00</p>
+                            </div>
+                        </div>
+                        <!-- end of single product -->
+                        <!-- single product -->
+                        <div class="product">
+                            <div class="product-content">
+                                <div class="product-img">
+                                    <img src="image/images/shoe-6.png" alt="product image">
+                                </div>
+                                <div class="product-btns">
+                                    <button type="button" class="btn-cart"> add to cart
+                                        <span><i class="fas fa-plus"></i></span>
+                                    </button>
+                                    <button type="button" class="btn-buy"> buy now
+                                        <span><i class="fas fa-shopping-cart"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="product-info">
+                                <div class="product-info-top">
+                                    <h2 class="sm-title">lifestyle</h2>
+                                    <div class="rating">
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="fas fa-star"></i></span>
+                                        <span><i class="far fa-star"></i></span>
+                                    </div>
+                                </div>
+                                <a href="#" class="product-name">womens shoes DN 23XX, new product</a>
+                                <p class="product-price">$ 150.00</p>
+                                <p class="product-price">$ 133.00</p>
+                            </div>
+                        </div>
+                        <!-- end of single product -->
+                        <!-- start ad logo -->
+                        <div class="ad-logo">
+                            <ul>
+                                <li><img src="/image/images/logo-rolex.png" alt=""></li>
+                                <li><img src="/image/images/logo-hublot.png" alt=""></li>
+                                <li><img src="/image/images/logo-citizen.png" alt=""></li>
+                                <li><img src="/image/images/logo-zenith.png" alt=""></li>
+                                <li><img src="/image/images/logo-tudor.png" alt=""></li>
+                                <li><img src="/image/images/logo-omega.png" alt=""></li>
+                            </ul>
+                        </div>
+                        <!-- end ad logo -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="product-collection">
+        <div class="container">
+            <div class="product-collection-wrapper">
+                <!-- product col left -->
+                <div class="product-col-left flex">
+                    <div class="product-col-content">
+                        <h2 class="sm-title">men's watch </h2>
+                        <h2 class="md-title">men's collection </h2>
+                        <p class="text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae
+                            consequatur facilis eligendi quibusdam voluptatibus exercitationem autem voluptatum, beatae
+                            architecto odit, quisquam repellat. Deleniti, architecto ab.</p>
+                        <button type="button" class="btn-dark">Mua ngay</button>
+                    </div>
+                </div>
+
+                <!-- product col right -->
+                <div class="product-col-right">
+                    <div class="product-col-r-top flex">
+                        <div class="product-col-content">
+                            <h2 class="sm-title">women's watch </h2>
+                            <h2 class="md-title">women's collection </h2>
+                            <p class="text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae
+                                consequatur facilis eligendi quibusdam voluptatibus exercitationem autem voluptatum,
+                                beatae architecto odit, quisquam repellat. Deleniti, architecto ab.</p>
+                            <button type="button" class="btn-dark">Mua ngay</button>
+                        </div>
+                    </div>
+
+                    <div class="product-col-r-bottom">
+                        <!-- left -->
+                        <div class="flex">
+                            <div class="product-col-content">
+                                <h2 class="sm-title">winter sale </h2>
+                                <h2 class="md-title">Extra 50% Off </h2>
+                                <p class="text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    Molestiae consequatur facilis eligendi quibusdam voluptatibus exercitationem autem
+                                    voluptatum, beatae architecto odit, quisquam repellat. Deleniti, architecto ab.</p>
+                                <button type="button" class="btn-dark">Mua ngay</button>
+                            </div>
+                        </div>
+                        <!-- right -->
+                        <div class="flex">
+                            <div class="product-col-content">
+                                <h2 class="sm-title">watchs </h2>
+                                <h2 class="md-title">best sellers </h2>
+                                <p class="text-light">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                    Molestiae consequatur facilis eligendi quibusdam voluptatibus exercitationem autem
+                                    voluptatum, beatae architecto odit, quisquam repellat. Deleniti, architecto ab.</p>
+                                <button type="button" class="btn-dark">Mua ngay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- start block-quote -->
+        <div class="block-quote">
+            <div class="content">
+                <h1>"</h1>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae consequatur facilis eligendi
+                    quibusdam
+                    voluptatibus exercitationem autem voluptatum, beatae architecto odit, quisquam repellat. Deleniti,
+                    architecto ab.</p>
+                <span>--Châm ngôn sống</span>
+                <button>Contact with us</button>
+            </div>
+        </div>
+        <!-- end block-quote -->
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="productAdmin.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Trước khi gọi script của FileSaver -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+
+</head>
+
+<body>
+    <!-- End of Navbar -->
+    <div class="content">
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Product Managament</h1>
+                    <!-- <ul class="breadcrumb">
+                        <li><a href="#">
+                                Analytics
+                            </a></li>
+                        /
+                        <li><a href="#" class="active">Shop</a></li>
+                    </ul> -->
+                </div>
+                <a class="report" id="openPopup">
+                    <i class='bx bx-plus' style='color:#ffffff'></i>
+                    <span>Add Product</span>
+                </a>
+            </div>
+            <!-- Popup -->
+            <div class="popup" id="productPopup">
+                <div class="popup-content">
+                    <span class="close" id="closePopup">&times;</span>
+                    <h2>Thêm sản phẩm</h2>
+                    <form class="form-sanpham">
+                        <div class="form-left">
+                            <div class="image-product">
+                                <h3 ng-show="!imageFile">Chọn ảnh cho sản phẩm</h3>
+                                <i class='bx bx-image-add' ng-show="!imageFile" ng-click="selectImage()"></i>
+                                <input ng-model="sanpham.image" type="file" id="fileInput" accept="image/*"
+                                    style="display: none" />
+                                <img ng-src="{{imagePreview}}" alt="Preview" ng-show="imagePreview" />
+                                <i class='bx bx-trash' ng-click="deleteImage()" ng-show="imageFile"></i>
+                            </div>
+
+                            <div>
+                                <label for="">Tên sản phẩm</label>
+                                <input class="custom-input" type="text" placeholder="Điền tên" ng-model="sanpham.name">
+                            </div>
+                            <div>
+                                <label for="thuong-hieu">Thương hiệu</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.brand"
+                                        ng-options="th as th.name for th in thuongHieu"
+                                        ng-change="updateSelectedValues(selectedThuongHieu, selectedValuesThuongHieu)">
+                                        <option value="">Chọn thương hiệu</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"
+                                        ng-click="openPopup('thuonghieu')"></i>
+                                    <div class="popup-thuoctinh" ng-show="isPopupOpen('thuonghieu')">
+                                        <div class="popup-content-thuoctinh">
+                                            <h3>Thêm Thương hiệu</h3>
+                                            <span class="close-thuoctinh"
+                                                ng-click="closePopup('thuonghieu')">&times;</span>
+                                            <div class="form-thuoctinh">
+                                                <div>
+                                                    <h4>Tên</h4>
+                                                    <input type="text" class="custom-input"
+                                                        placeholder="Điền tên thương hiệu">
+                                                </div>
+                                                <div class="button">
+                                                    <button>Thêm mới</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="size-mat">Size mặt</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.kichCo"
+                                        ng-options="size as size.name for size in sizeMat"
+                                        ng-change="updateSelectedValues(sanpham.kichCo, selectedValues)">
+                                        <option value="">Chọn Size mặt</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Giới tính</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.gender"
+                                        ng-options="gt as gt.name for gt in gender"
+                                        ng-change="updateSelectedValues(selectedGioiTinh, selectedValuesGioiTinh)">
+                                        <option value="">Chọn Giới tính</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Dòng máy</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.machinetype"
+                                        ng-options="mt as mt.name for mt in machineType"
+                                        ng-change="updateSelectedValues(selectedDongmay, selectedValuesDongMay)">
+                                        <option value="">Chọn Dòng máy</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Chất liệu dây</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.strap"
+                                        ng-options="str as str.name for str in strap"
+                                        ng-change="updateSelectedValues(selectedChatLieuDay, selectedValues_ChatLieuDay)">
+                                        <option value="">Chọn Loại dây</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Chất liệu kính</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.glassmaterial"
+                                        ng-options="gm as gm.name for gm in glassMaterial"
+                                        ng-change="updateSelectedValues(selectedChatLieuKinh, selectedValues_ChatLieuKinh)">
+                                        <option value="">Chọn Loại kính</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Tính năng</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.feature"
+                                        ng-options="tn as tn.name for tn in feature"
+                                        ng-change="updateSelectedValues(selectedTinhNang, selectedValues_TinhNang)">
+                                        <option value="">Chọn Tính năng</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Xuất xứ</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.origin"
+                                        ng-options="or as or.name for or in origin"
+                                        ng-change="updateSelectedValues(selectedXuatXu, selectedValues_XuatXu)">
+                                        <option value="">Chọn xuất xứ</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Hình dạng</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.shape"
+                                        ng-options="sh as sh.name for sh in shape"
+                                        ng-change="updateSelectedValues(selectedHinhDang, selectedValues_HinhDang)">
+                                        <option value="">Chọn hình dạng</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="">Màu vỏ</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.casecolor"
+                                        ng-options="cc as cc.name for cc in caseColor"
+                                        ng-change="updateSelectedValues(selectedMauVo, selectedValues_MauVo)">
+                                        <option value="">Chọn màu vỏ</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="">Chất liệu vỏ</label>
+                                <div>
+                                    <select class="custom-input" ng-model="sanpham.casematerial"
+                                        ng-options="cm as cm.name for cm in caseMaterial"
+                                        ng-change="updateSelectedValues(selectedMauVo, selectedValues_MauVo)">
+                                        <option value="">Chọn màu vỏ</option>
+                                    </select>
+                                    <i class='bx bxs-edit-alt' style="font-size: 17px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-right">
+                            <div class="form-right-thuoctinh">
+                                <div class="form-right-thuoctinh-header" id="thuoctinh-header">
+                                    <h3>Thuộc tính</h3>
+                                    <i ng-click="toggleContent()" class="bx bxs-chevron-down" ng-show="showContent"
+                                        style="color: black"></i>
+                                    <i ng-click="toggleContent()" class="bx bxs-chevron-up" ng-hide="showContent"
+                                        style="color: black"></i>
+                                </div>
+                                <div class="form-right-thuoctinh-noidung" ng-show="showContent">
+                                    <ul>
+                                        <li>
+                                            <!-- <div class="selected-values" id="selected-values-sizemat">
+                                                <h3>Size mặt: </h3>
+                                            </div> -->
+                                            <h3>Size mặt: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedSizeMat in selectedValues"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedSizeMat, selectedValues)">{{
+                                                    selectedSizeMat.name }}</span>
+                                            </div>
+                                        </li>
+                                        <!-- <li>
+                                            <h3>Thương hiệu: </h3>
+                                            <div id="selected-values-thuonghieu" class="selected-values">
+                                                <span ng-repeat="selectedThuongHieu in selectedValuesThuongHieu"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedThuongHieu, selectedValuesThuongHieu)">{{
+                                                    selectedThuongHieu.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Giới tính: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedGioiTinh in selectedValuesGioiTinh"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedGioiTinh, selectedValuesGioiTinh)">{{
+                                                    selectedGioiTinh.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Dòng máy: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedDongMay in selectedValuesDongMay"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedDongMay, selectedValuesDongMay)">{{
+                                                    selectedDongMay.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Chất liệu dây: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedChatLieuDay in selectedValues_ChatLieuDay"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedChatLieuDay, selectedValues_ChatLieuDay)">{{
+                                                    selectedChatLieuDay.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Chất liệu kính: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedChatLieuKinh in selectedValues_ChatLieuKinh"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedChatLieuKinh, selectedValues_ChatLieuKinh)">{{
+                                                    selectedChatLieuKinh.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Tính năng: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedTinhNang in selectedValues_TinhNang"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedTinhNang, selectedValues_TinhNang)">{{
+                                                    selectedTinhNang.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Size mặt: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedSizeMat in selectedValues"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedSizeMat, selectedValues)">{{
+                                                    selectedSizeMat.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Xuất xứ: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedXuatXu in selectedValues_XuatXu"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedXuatXu, selectedValues_XuatXu)">{{
+                                                    selectedXuatXu.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Hình dạng: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedHinhDang in selectedValues_HinhDang"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedHinhDang, selectedValues_HinhDang)">{{
+                                                    selectedHinhDang.name }}</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h3>Màu vỏ: </h3>
+                                            <div class="selected-values">
+                                                <span ng-repeat="selectedMauVo in selectedValues_MauVo"
+                                                    class="selected-value"
+                                                    ng-click="deleteSelectedValue(selectedMauVo, selectedValues_MauVo)">{{
+                                                    selectedMauVo.name }}</span>
+                                            </div>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-right-image">
+                                <div class="form-right-image-header" id="image-header">
+                                    <h3>Danh sách sản phẩm cùng loại</h3>
+                                    <i ng-click="toggleImageContent()" class="bx bxs-chevron-down"
+                                        ng-show="showImageContent" style="color: black"></i>
+                                    <i ng-click="toggleImageContent()" class="bx bxs-chevron-up"
+                                        ng-hide="showImageContent" style="color: black"></i>
+                                </div>
+                                <div class="form-right-image-noidung" ng-show="showImageContent">
+                                    <!-- <div>
+                                        <div class="img-product">
+                                            <i id="image-icon" class='bx bx-image' style='color:black'></i>
+                                            <input type="file" id="image-input" style="display: none;" accept="image/*">
+                                            <img src="" alt="" id="preview-image">
+                                            <p id="browse-link">Ảnh đại diện <a href="#">click to browse</a></p>
+                                        </div>
+                                        <div class="img-product-lienquan">
+                                            <ul>
+                                                <li>Aov</li>
+                                                <li>Aoc</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <button>Thêm ảnh</button>
+                                        <button>Làm mới</button>
+                                    </div> -->
+                                    <div class="bottom-data">
+                                        <div class="orders">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Kích thước</th>
+                                                        <th style="padding-left: 15px;">Mã sản phẩm</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Giá nhập</th>
+                                                        <th>Số lượng tồn</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="product in productList" class="generationList">
+                                                        <td ng-model="product.size">{{product.size.name}}</td>
+                                                        <td>
+                                                            <input ng-model="product.code" class="custom-input"
+                                                                type="text" placeholder="Điền mã sản phẩm">
+                                                        </td>
+                                                        <td>
+                                                            <input ng-model="product.price" class="custom-input"
+                                                                type="text" placeholder="Điền giá bán">
+                                                        </td>
+                                                        <td>
+                                                            <input ng-model="product.price_im" class="custom-input"
+                                                                type="text" placeholder="Điền giá nhập">
+                                                        </td>
+                                                        <td>
+                                                            <input ng-model="product.quantity_stock"
+                                                                class="custom-input" type="text"
+                                                                placeholder="Điền số lượng tồn">
+                                                        </td>
+                                                        <td><i class='bx bx-trash'
+                                                                ng-click="deleteProduct(product)"></i></td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- <div ng-show="showImagePopup" class="popupImage">
+                                                <div class="popup-image">
+                                                    <h3>Chọn ảnh cho sản phẩm {{ currentProduct.thuongHieu.name }}</h3>
+                                                    <span class="close-thuoctinh" id="closePopup-image" ng-click="closeImagePopup()">&times;</span>
+                                                    <div class="image-sanpham">
+                                                        <img ng-src="{{reviewImage}}">
+                                                    </div>
+                                                    <div class="button">
+                                                        <button id="add-image-button" ng-click="addImage(product)">Thêm ảnh</button>
+                                                        <button id="delete-image-button" ng-click="deleteImage(product)">Xóa ảnh</button>
+                                                        <input type="file" id="image-upload" ng-model="selectedImage" ng-change="handleImageSelect()" accept="image/*">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <table id="table-sanphamsinhra">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="checkbox">
+                                                            <input type="checkbox" id="selectAllCheckbox">
+                                                        </th>
+                                                        <th>Số thứ tự</th>
+                                                        <th>Size mặt</th>
+                                                        <th>Thương hiệu</th>
+                                                        <th>Giá nhập</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Số lượng tồn</th>
+                                                        <th>Ảnh</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="table-body-sanphamsinhra">
+                                                </tbody>
+                                            </table> -->
+                                            <!-- <table id="table-sanphamsinhra">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="checkbox">
+                                                            <input type="checkbox" id="selectAllCheckbox">
+                                                        </th>
+                                                        <th>Số thứ tự</th>
+                                                        <th>Size mặt</th>
+                                                        <th>Thương hiệu</th>
+                                                        <th>Giá nhập</th>
+                                                        <th>Giá bán</th>
+                                                        <th>Số lượng tồn</th>
+                                                        <th>Ảnh</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="images/profile-1.jpg">
+                                                        </td>
+                                                        <td>
+                                                            <p>John Doe</p>
+                                                        </td>
+                                                        <td>14-08-2023</td>
+                                                        <td><span class="status completed">Completed</span></td>
+                                                        <td>120.000.000 <u>VND</u></td>
+                                                        <td>45</td>
+                                                        <td><i class='bx bxs-image-alt' id="openPopup-image"></i></td>
+                                                        <td>
+                                                            <i class='bx bx-trash'></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="images/profile-1.jpg">
+                                                        </td>
+                                                        <td>
+                                                            <p>John Doe</p>
+                                                        </td>
+                                                        <td>14-08-2023</td>
+                                                        <td><span class="status pending">Pending</span></td>
+                                                        <td>120.000.000 <u>VND</u></td>
+                                                        <td>45</td>
+                                                        <td>10/14/2023</td>
+                                                        <td>
+                                                            <i class='bx bx-dots-horizontal-rounded'
+                                                                style='color:black'></i>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <img src="images/profile-1.jpg">
+                                                        </td>
+                                                        <td>
+                                                            <p>John Doe</p>
+                                                        </td>
+                                                        <td>14-08-2023</td>
+                                                        <td><span class="status process">Processing</span></td>
+                                                        <td>120.000.000 <u>VND</u></td>
+                                                        <td>45</td>
+                                                        <td>10/14/2023</td>
+                                                        <td>
+                                                            <i class='bx bx-dots-horizontal-rounded'
+                                                                style='color:black'></i>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="button">
+                        <button ng-click="addProducts()">Thêm</button>
+                        <button>Làm mới</button>
+                    </div>
+                </div>
+            </div>
+            <!-- End popup -->
+
+            <div class="tab-product">
+                <ul>
+                    <li ng-click="selectTab('danhsach')" ng-class="{active: currentTab === 'danhsach'}">Danh sách Sản
+                        phẩm</li>
+                    <li ng-click="selectTab('soLuongTon')" ng-class="{active: currentTab === 'soLuongTon'}">Hết số lượng
+                        tồn</li>
+                    <li ng-click="selectTab('ngungHoatDong')" ng-class="{active: currentTab === 'ngungHoatDong'}">Ngừng
+                        hoạt động</li>
+                </ul>
+            </div>
+
+            <div class="danhsach-product" ng-show="currentTab === 'danhsach'">
+                <!-- Insights -->
+                <ul class="insights">
+                    <li>
+                        <i class='bx bx-calendar-check'></i>
+                        <span class="info">
+                            <h3>
+                                {{product.length}}
+                            </h3>
+                            <p>Total products</p>
+                        </span>
+                    </li>
+                    <li><i class='bx bx-notification-off'></i>
+                        <span class="info">
+                            <h3>
+                                5
+                            </h3>
+                            <p>Out of stock</p>
+                        </span>
+                    </li>
+                    <li><i class='bx bx-library'></i>
+                        <span class="info">
+                            <h3>
+                                {{watchs.length}}
+                            </h3>
+                            <p>Total items</p>
+                        </span>
+                    </li>
+                    <li><i class='bx bxs-credit-card-front'></i>
+                        <span class="info">
+                            <h3>
+                                {{thuongHieu.length}}
+                            </h3>
+                            <p>Categories</p>
+                        </span>
+                    </li>
+                </ul>
+                <!-- End of Insights -->
+
+                <div class="bottom-data">
+                    <div class="orders">
+                        <div class="header">
+                            <i class='bx bx-receipt'></i>
+                            <h3>List Product</h3>
+                            <div class="tienich">
+                                <div class="search-product" id="search-container">
+                                    <p></p>
+                                    <input type="text" placeholder="Điền sản phẩm cần tìm">
+                                    <i class='bx bx-search' id="search-icon"></i>
+                                </div>
+                                <i class='bx bx-x' id="close-icon"></i>
+                                <div class="dropdown-tienich">
+                                    <button id="dropdown-toggle" class="btn-dropdown">
+                                        Tiện tích <i class='bx bx-chevrons-down'></i>
+                                    </button>
+                                    <ul id="dropdown-menu" class="dropdown-menu">
+                                        <input type="file" id="fileInput" ng-model="selectedFileExcel" accept=".xlsx"
+                                            style="display: none" />
+                                        <li ng-click="importFile()">
+                                                <i class='bx bx-import'></i> Import File
+                                        </li>
+                                        <li ng-click="exportToExcel()"><i class='bx bx-export'
+                                                style='color:black'></i>Export File
+                                        </li>
+                                        <li><i class='bx bx-stop-circle' style='color:black'></i>Ngưng
+                                            bán</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="caties">
+                            <ul>
+                                <li>
+                                    <p>Size mặt:</p>
+                                    <select name="category" ng-model="selectedSizemat">
+                                        <option value="">All</option>
+                                        <option ng-repeat="size in sizeMat" value="{{ size.id }}">{{ size.name }}
+                                        </option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Thương hiệu:</p>
+                                    <select name="category" ng-model="selectedThuonghieu">
+                                        <option value="">All</option>
+                                        <option ng-repeat="th in thuongHieu" value="{{ th.id }}">{{ th.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Màu vỏ:</p>
+                                    <select name="category" ng-model="selectedMauvo">
+                                        <option value="">All</option>
+                                        <option ng-repeat="cc in caseColor" value="{{ cc.id }}">{{ cc.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Chất liệu vỏ:</p>
+                                    <select name="category" ng-model="selectedChatlieuvo">
+                                        <option value="">All</option>
+                                        <option ng-repeat="cm in caseMaterial" value="{{ cm.id }}">{{ cm.name }}
+                                        </option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Tính năng:</p>
+                                    <select name="category" ng-model="selectedTinhnang">
+                                        <option value="">All</option>
+                                        <option ng-repeat="tn in feature" value="{{ tn.id }}">{{ tn.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Chất liệu kính:</p>
+                                    <select name="category" ng-model="selectedChatlieukinh">
+                                        <option value="">All</option>
+                                        <option ng-repeat="gm in glassMaterial" value="{{ gm.id }}">{{ gm.name }}
+                                        </option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Dòng máy:</p>
+                                    <select name="category" ng-model="selectedDongmay">
+                                        <option value="">All</option>
+                                        <option ng-repeat="mt in machineType" value="{{ mt.id }}">{{ mt.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Xuất xứ:</p>
+                                    <select name="category" ng-model="selectedXuatxu">
+                                        <option value="">All</option>
+                                        <option ng-repeat="or in origin" value="{{ or.id }}">{{ or.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Hình dạng:</p>
+                                    <select name="category" ng-model="selectedXuatxu">
+                                        <option value="">All</option>
+                                        <option ng-repeat="sh in shape" value="{{ sh.id }}">{{ sh.name }}</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <p>Loại dây:</p>
+                                    <select name="category" ng-model="selectedXuatxu">
+                                        <option value="">All</option>
+                                        <option ng-repeat="str in strap" value="{{ str.id }}">{{ str.name }}</option>
+                                    </select>
+                                </li>
+                            </ul>
+                            <div class="clear-filter">
+                                <h4>Clear</h4>
+                                <i class='bx bx-x'></i>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="checkbox">
+                                        <input type="checkbox" id="selectAllCheckbox" ng-model="selectAllCheckbox"
+                                            ng-click="selectAllCheckboxes()">
+                                    </th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>CaseColor</th>
+                                    <th>CaseMaterial</th>
+                                    <th>Feature</th>
+                                    <th>GlassMaterial</th>
+                                    <th>Size Mặt</th>
+                                    <th>Price</th>
+                                    <th>Iventory</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="watch in watchs">
+                                    <td> <input type="checkbox" ng-model="watch.selected"></td>
+                                    <td>
+                                        <img src="/image/images/{{watch.images[0].image_link}}.png">
+                                    </td>
+                                    <td>
+                                        <p>{{watch.product.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.casecolor.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.casematerial.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.feature.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.glassmaterial.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.size.name}}</p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.price}} <u>VND</u></p>
+                                    </td>
+                                    <td>
+                                        <p>{{watch.quantity_stock}}</p>
+                                    </td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td> <input type="checkbox"></td>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <input type="checkbox"></td>
+
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status process">Processing</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="soluongton-product" ng-show="currentTab === 'soLuongTon'">
+                <h2>Soluong ton</h2>
+                <div class="bottom-data">
+                    <div class="orders">
+                        <div class="header">
+                            <i class='bx bx-receipt'></i>
+                            <h3>Danh sách</h3>
+                            <div class="tienich">
+                                <div class="search-product" id="search-container">
+                                    <p></p>
+                                    <input type="text" placeholder="Điền sản phẩm cần tìm">
+                                    <i class='bx bx-search' id="search-icon"></i>
+                                </div>
+                                <i class='bx bx-x' id="close-icon"></i>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Material</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Iventory</th>
+                                    <th>DateAdded</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status process">Processing</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="ngunghoatdong-product" ng-show="currentTab === 'ngungHoatDong'">
+                <h3>So luong ton</h3>
+                <div class="bottom-data">
+                    <div class="orders">
+                        <div class="header">
+                            <i class='bx bx-receipt'></i>
+                            <h3>Danh sách</h3>
+                            <div class="tienich">
+                                <div class="search-product" id="search-container">
+                                    <p></p>
+                                    <input type="text" placeholder="Điền sản phẩm cần tìm">
+                                    <i class='bx bx-search' id="search-icon"></i>
+                                </div>
+                                <i class='bx bx-x' id="close-icon"></i>
+                                <div class="dropdown-tienich">
+                                    <button id="dropdown-toggle" class="btn-dropdown">
+                                        Tiện tích <i class='bx bx-chevrons-down'></i>
+                                    </button>
+                                    <ul id="dropdown-menu" class="dropdown-menu">
+                                        <li><a href="#"><i class='bx bx-stop-circle' style='color:black'></i>Khôi
+                                                phục</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="checkbox">
+                                        <input type="checkbox" id="selectAllCheckbox">
+                                    </th>
+                                    <th>Số thứ tự</th>
+                                    <th>Size mặt</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Giá nhập</th>
+                                    <th>Giá bán</th>
+                                    <th>Số lượng tồn</th>
+                                    <th>Ảnh</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <input type="checkbox"></td>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <input type="checkbox"></td>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <input type="checkbox"></td>
+                                    <td>
+                                        <img src="images/profile-1.jpg">
+                                    </td>
+                                    <td>
+                                        <p>John Doe</p>
+                                    </td>
+                                    <td>14-08-2023</td>
+                                    <td><span class="status process">Processing</span></td>
+                                    <td>120.000.000 <u>VND</u></td>
+                                    <td>45</td>
+                                    <td>10/14/2023</td>
+                                    <td>
+                                        <i class='bx bx-dots-horizontal-rounded' style='color:black'></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- <div class="popupImage" ng-show="showImagePopup">
+            <div class="popup-image">
+              <h3>Chọn ảnh cho sản phẩm {{ currentProduct.size.name }}</h3>
+              <input type="file" ng-model="imageFile" accept="image/*" onchange="angular.element(this).scope().previewImage(this)" />
+              <img ng-src="{{imagePreview}}" alt="Preview" ng-show="imagePreview" />
+              <div class="button">
+                <button ng-click="uploadImage()">Tải lên</button>
+                <button ng-click="closeImagePopup()">Đóng</button>
+              </div>
+            </div>
+          </div> -->
+
+        <!-- <div ng-show="showImagePopup" class="popupImage">
+            <div class="popup-image">
+                <h3>Chọn ảnh cho sản phẩm {{ currentProduct.thuongHieu.name }}</h3>
+                <span class="close-thuoctinh" id="closePopup-image" ng-click="closeImagePopup()">&times;</span>
+                <div class="image-sanpham">
+                    <img ng-src="{{selectedProductImage}}">
+                </div>
+                <div class="button">
+                    <label for="image-upload" id="add-image-button">Thêm ảnh</label>
+                    <button id="delete-image-button" ng-click="deleteImage()">Xóa ảnh</button>
+                    <input type="file" id="image-upload" accept="image/*" style="display: none">
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</body>
+
+</html>
